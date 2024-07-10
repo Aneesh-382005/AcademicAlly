@@ -26,7 +26,7 @@ def GetTableData(sheet, columnIndex):
 
 
 if __name__ == '__main__':
-  path = "/content/TIMETABLEJANMAY2024.xlsx"
+  path = "AcademicAlly\data\TIMETABLEJANMAY2024.xlsx"
   excelData = pd.ExcelFile(path)
 
   data = {}

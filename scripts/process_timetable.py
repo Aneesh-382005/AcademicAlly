@@ -1,9 +1,13 @@
 import pandas as pd
 import json
 import re
-
+import os
 from datetime import datetime
 
+
+print("haha")
+print(os.getcwd())
+print("haha")
 
 def GetTableData(sheet, columnIndex):
 
@@ -26,7 +30,7 @@ def GetTableData(sheet, columnIndex):
 
 
 if __name__ == '__main__':
-  path = "AcademicAlly\data\TIMETABLEJANMAY2024.xlsx"
+  path = "data/TIMETABLEJANMAY2024.xlsx"
   excelData = pd.ExcelFile(path)
 
   data = {}

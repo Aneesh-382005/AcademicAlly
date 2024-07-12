@@ -5,10 +5,6 @@ import os
 from datetime import datetime
 
 
-print("haha")
-print(os.getcwd())
-print("haha")
-
 def GetTableData(sheet, columnIndex):
 
   #print(columnIndex)

@@ -3,7 +3,7 @@ from datetime import datetime
 import os
 import re
 
-llm = os
+llm = os.environ("OPENAI_API_KEY")
 
 with open('data.json') as f:
     data = json.load(f)

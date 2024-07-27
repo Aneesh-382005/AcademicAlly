@@ -15,6 +15,7 @@ def remove_whitespace(s):
     if s is None:
         return None
     return ''.join(s.split())
+
 def return_day(row_val):
     if 8 <= row_val <= 35:
         return "Monday"
@@ -47,7 +48,36 @@ def get_formatted_time(sheet, row, column):
             cell_value = str(cell_value)
 
     return cell_value
-def parser( sheet, result):
+
+def HandlePractical(sheet, x, y, subgroup, day, time, cell, result):
+    room = sheet.cell(row=x + 1, column=y).value + ' ' + sheet.cell(row=x + 2, column=y).value
+    result[subgroup][day][time] = [cell, room]
+    print(f"result[{subgroup}][{day}][{time}] = {cell}")
+
+    # time2 = sheet.cell(row=x + 2, column=4).value.strftime("%I:%M %p")
+    time2 = get_formatted_time(sheet, x+2, 4)
+
+    result[subgroup][day][time2] = [cell, room]
+    print(f"result[{subgroup}][{day}][{time2}] = {cell}")
+    skip_next = True
+
+
+def HandleTutorial(sheet, x, y, subgroup, day, time, cell, result):
+    checker = sheet.cell(row = x+2, column=y).value
+    if (checker is not None and len(checker) <= 5):
+        room = sheet.cell(row=x + 1, column=y).value + ' ' + sheet.cell(row=x + 2, column=y).value
+        time2 = get_formatted_time(sheet, x+2, 4)
+        result[subgroup][day][time2] = [cell, room]
+        print(f"result[{subgroup}][{day}][{time2}] = {cell}")
+        skip_next = True
+
+    room = sheet.cell(row=x + 1, column=y).value
+    result[subgroup][day][time] = [cell, room]
+    print(f"result[{subgroup}][{day}][{time}] = {cell}")
+
+
+
+def parser(sheet, result):
     merged_cells_map = get_merged_cells(sheet)[0]
 
     row_size = sheet.max_row
@@ -68,8 +98,6 @@ def parser( sheet, result):
                 break
 
             time =get_formatted_time(sheet, x, 4)
-
-
 
             cell = remove_whitespace(sheet.cell(row=x, column=y).value)
 
@@ -101,27 +129,9 @@ def parser( sheet, result):
                         result[subgroup][day][time] = [cell, room]
                         print(f"result[{subgroup}][{day}][{time}] = {cell}")
 
-                if type == 'P':
-                    room = sheet.cell(row=x + 1, column=y).value + ' ' + sheet.cell(row=x + 2, column=y).value
-                    result[subgroup][day][time] = [cell, room]
-                    print(f"result[{subgroup}][{day}][{time}] = {cell}")
-
-                    # time2 = sheet.cell(row=x + 2, column=4).value.strftime("%I:%M %p")
-                    time2 = get_formatted_time(sheet, x+2, 4)
-
-                    result[subgroup][day][time2] = [cell, room]
-                    print(f"result[{subgroup}][{day}][{time2}] = {cell}")
+                elif type == 'P':
+                    HandlePractical(sheet, x, y, subgroup, day, time, cell, result)
                     skip_next = True
-
-                if type == 'T':
-                    checker = sheet.cell(row = x+2, column=y).value
-                    if (checker is not None and len(checker) <= 5):
-                        room = sheet.cell(row=x + 1, column=y).value + ' ' + sheet.cell(row=x + 2, column=y).value
-                        time2 = get_formatted_time(sheet, x+2, 4)
-                        result[subgroup][day][time2] = [cell, room]
-                        print(f"result[{subgroup}][{day}][{time2}] = {cell}")
-                        skip_next = True
-
-                    room = sheet.cell(row=x + 1, column=y).value
-                    result[subgroup][day][time] = [cell, room]
-                    print(f"result[{subgroup}][{day}][{time}] = {cell}")
+                elif type == 'T':
+                    HandleTutorial(sheet, x, y, subgroup, day, time, cell, result)
+                    skip_next = True

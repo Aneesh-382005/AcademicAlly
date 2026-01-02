@@ -1,7 +1,7 @@
 import json
 
 def AddSubjectNames():
-    resultPath = '../resultsTIMETABLEJULYTODEC25.json'
+    resultPath = '../resultsTIMETABLEJANTOMAY2026.json'
     with open(resultPath, 'r') as file:
         data = json.load(file)
     

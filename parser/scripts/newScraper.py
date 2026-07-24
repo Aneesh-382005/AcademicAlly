@@ -82,7 +82,7 @@ def extract_course_codes(json_data):
     return course_codes, skipped
 
 def main():
-    file_path = '../resultsTIMETABLEJULYTODEC25.json'
+    file_path = '../resultsTIMETABLEJULYTODEC2026.json'
 
     with open(file_path, 'r') as file:
         json_data = json.load(file)
@@ -97,7 +97,7 @@ def main():
         course_name = get_course_name(code)
         courses[code] = course_name
 
-    with open('subjects(TIMETABLEJULYTODEC25).json', 'w') as json_file:
+    with open('subjects(TIMETABLEJULYTODEC26).json', 'w') as json_file:
         json.dump(courses, json_file, indent=4)
 
 

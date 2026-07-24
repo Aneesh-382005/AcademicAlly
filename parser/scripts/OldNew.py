@@ -4,7 +4,7 @@ from openpyxl import load_workbook
 FinalMap = {}
 
 def OldAndNew():
-    path = "../utilities/TIMETABLEJULYTODEC25.xlsx"
+    path = "../utilities/TIMETABLEJULYTODEC2026.xlsx"
     workbook = load_workbook(filename=path, data_only=True)
 
     def clean_value(value):

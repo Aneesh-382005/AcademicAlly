@@ -1,11 +1,11 @@
 import json
 
 def AddSubjectNames():
-    resultPath = '../resultsTIMETABLEJANTOMAY2026.json'
+    resultPath = '../resultsTIMETABLEJULYTODEC2026.json'
     with open(resultPath, 'r') as file:
         data = json.load(file)
     
-    subjectPath = 'subjects(TIMETABLEJULYTODEC25).json'
+    subjectPath = 'subjects(TIMETABLEJULYTODEC26).json'
     with open(subjectPath, 'r') as file:
         subjects = json.load(file)
     
@@ -23,10 +23,7 @@ def Update(schedule, subjects):
 
             for code in subjectCodes:
                 subjectCode = code[:-1] if code[-1] in 'LTP' else code
-                if subjectCode in subjects:
-                    subjectNames.append(subjects[subjectCode])
-                else:
-                    subjectNames.append(subjectCode)
+                subjectNames.append(subjects.get(subjectCode) or subjectCode)
 
             if subjectNames:
                 details.append('/'.join(subjectNames))

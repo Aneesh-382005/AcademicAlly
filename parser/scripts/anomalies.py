@@ -19,7 +19,7 @@ def findIdentical(data):
 
 
 def main():
-    filePath = 'subjects(TIMETABLEJULYTODEC25).json'
+    filePath = 'subjects(TIMETABLEJULYTODEC26).json'
     with open(filePath, 'r', encoding='utf-8') as file:
         data = json.load(file)
 
